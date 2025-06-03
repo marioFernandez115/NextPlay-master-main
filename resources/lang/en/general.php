@@ -73,7 +73,7 @@ return [
     'Entregarápida' => 'Fast delivery',
     'Recibeensegundos' => 'Receive in seconds',
     'Soporte 24/7' => '24/7 support',
-    'Ayuda en todo momento' => 'Help at all times',
+    'Ayudaentodomomento' => 'Help at all times',
     'Compradesdecualquierlugar' => 'Buy from anywhere',
     'Coberturaglobal' => 'Global coverage',
     'buy_now' => 'Buy now',
@@ -140,4 +140,7 @@ return [
     'saludo' => 'So glad to see you again, :usuario!',
     'alt_bienvenida' => 'Welcome image',
     'boton_explorar' => 'Explore Games!',
+
+    'Notienesjuegosfavoritos' => 'You have no favorite games yet.',
+
 ];

@@ -36,13 +36,3 @@
     </div>
 </div>
 @endsection
-
-<!-- Language Selector -->
-<form method="GET" action="{{ route('language.change') }}" class="language-selector">
-    <select name="lang" onchange="this.form.submit()">
-        <option value="es" {{ app()->getLocale() == 'es' ? 'selected' : '' }}>Español</option>
-        <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
-        <option value="pt" {{ app()->getLocale() == 'pt' ? 'selected' : '' }}>Português</option>
-    </select>
-</form>
-

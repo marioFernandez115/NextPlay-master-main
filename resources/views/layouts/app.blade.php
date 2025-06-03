@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="https://kit.fontawesome.com/a2e5cdd5e6.js" crossorigin="anonymous"></script>
 </head>
@@ -100,11 +102,7 @@
                                     <i class="fas fa-user-edit me-2"></i>{{ __('general.editarperfil') }}
                                 </a>
                             </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('ajustesWeb') }}">
-                                    <i class="fas fa-cogs me-2"></i> {{ __('general.gestionarcuenta') }}
-                                </a>
-                            </li>
+
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -127,8 +125,7 @@
     <main class="container my-4">
         @yield('contenido')
     </main>
-
-    <footer class="bg-dark text-light pt-4">
+    <footer id="footer" class="bg-dark text-light pt-4 opacity-0 translate-y-50 transition">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-3">
@@ -138,18 +135,18 @@
                     <p>Gonzalo Jimeno y Mario Fernandez</p>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <h5>{{ __('general.Enlacesútiles') }}</h5>
+                    <h5>{{ __('general.enlacesutiles') }}</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-decoration-none text-light">{{ __('general.teminosycondiciones') }}</a></li>
-                        <li><a href="#" class="text-decoration-none text-light">{{ __('general.politicadeprivacidad') }}</a></li>
-                        <li><a href="#" class="text-decoration-none text-light">{{ __('general.ayuda') }}</a></li>
+                        <li><a href="{{ route('terminos') }}" class="text-decoration-none text-light">{{ __('general.teminosycondiciones') }}</a></li>
+                        <li><a href="{{ route('privacidad') }}" class="text-decoration-none text-light">{{ __('general.politicadeprivacidad') }}</a></li>
+                        <li><a href="{{ route('ayuda') }}" class="text-decoration-none text-light">{{ __('general.ayuda') }}</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-3">
                     <h5>{{ __('general.redessociales') }}</h5>
-                    <a href="#" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/?locale=es_ES" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://x.com/?lang=es" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com" class="text-light me-3"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
             <div class="text-center py-3 border-top border-secondary">
@@ -167,9 +164,23 @@
                 link.addEventListener('mouseover', () => link.classList.add('active-hover'));
                 link.addEventListener('mouseleave', () => link.classList.remove('active-hover'));
             });
+
+            // 🎯 Footer animation
+            const footer = document.getElementById('footer');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        footer.classList.add('animate-in');
+                        observer.unobserve(footer); // Solo una vez
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            observer.observe(footer);
         });
     </script>
-
 
 
 </body>

@@ -137,3 +137,7 @@ Route::get('/lang/{locale}', function ($locale) {
     }
     return redirect()->back();
 });
+
+Route::view('/terminos', 'terminos')->name('terminos');
+Route::view('/privacidad', 'privacidad')->name('privacidad');
+Route::view('/ayuda', 'ayuda')->name('ayuda');

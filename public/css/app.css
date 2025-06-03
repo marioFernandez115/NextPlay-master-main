@@ -1,3 +1,18 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
 .logoNAVBAR {
 
     padding-left: 15px; 
@@ -181,3 +196,19 @@
 .nav-hover:hover::after {
     width: 100%;
 }
+ .opacity-0 {
+        opacity: 0;
+    }
+
+    .translate-y-50 {
+        transform: translateY(50px);
+    }
+
+    .transition {
+        transition: all 0.8s ease;
+    }
+
+    .animate-in {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }

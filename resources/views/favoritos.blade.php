@@ -26,7 +26,7 @@
         </div>
         @empty
         <div class="col-12">
-            <div class="alert alert-warning">{{ __('general.No tienes juegos favoritos') }}</div>
+            <div class="alert alert-warning">{{ __('general.Notienesjuegosfavoritos') }}</div>
         </div>
         @endforelse
     </div>
@@ -36,12 +36,3 @@
     </div>
 </div>
 @endsection
-
-<!-- Language Selector -->
-<form method="GET" action="{{ route('language.change') }}" class="language-selector">
-    <select name="lang" onchange="this.form.submit()">
-        <option value="es" {{ app()->getLocale() == 'es' ? 'selected' : '' }}>Español</option>
-        <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
-        <option value="pt" {{ app()->getLocale() == 'pt' ? 'selected' : '' }}>Português</option>
-    </select>
-</form>

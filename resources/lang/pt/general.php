@@ -72,7 +72,7 @@ return [
     'Entregarápida' => 'Entrega rápida',
     'Recibeensegundos' => 'Receba em segundos',
     'Soporte 24/7' => 'Suporte 24/7',
-    'Ayuda en todo momento' => 'Ajuda a qualquer momento',
+    'Ayudaentodomomento' => 'Ajuda a qualquer momento',
     'Compradesdecualquierlugar' => 'Compre de qualquer lugar',
     'Coberturaglobal' => 'Cobertura global',
     'buy_now' => 'Comprar agora',
@@ -141,4 +141,6 @@ return [
     'saludo' => 'Que bom ver você de novo, :usuario!',
     'alt_bienvenida' => 'Imagem de boas-vindas',
     'boton_explorar' => 'Explorar Jogos!',
+
+    'Notienesjuegosfavoritos' => 'Você ainda não tem jogos favoritos.',
 ];

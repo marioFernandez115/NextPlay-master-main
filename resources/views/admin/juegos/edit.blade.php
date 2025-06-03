@@ -84,11 +84,6 @@
             <input type="text" name="desarrollador" id="desarrollador" value="{{ old('desarrollador', $juego->desarrollador) }}" class="form-control" required>
         </div>
 
-        <!-- Editor -->
-        <div class="mb-3">
-            <label for="editor" class="form-label">Editor</label>
-            <input type="text" name="editor" id="editor" value="{{ old('editor', $juego->editor) }}" class="form-control" required>
-        </div>
 
         <!-- Clasificación por edad -->
         <div class="mb-3">
@@ -113,13 +108,3 @@
     </form>
 </div>
 @endsection
-
-<!-- Language Selector -->
-<form method="GET" action="{{ route('language.change') }}" class="language-selector">
-    <select name="lang" onchange="this.form.submit()">
-        <option value="es" {{ app()->getLocale() == 'es' ? 'selected' : '' }}>Español</option>
-        <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
-        <option value="pt" {{ app()->getLocale() == 'pt' ? 'selected' : '' }}>Português</option>
-    </select>
-</form>
-
