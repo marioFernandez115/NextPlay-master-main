@@ -36,7 +36,7 @@ class StripePaymentController extends Controller
             return redirect()->route('cart.index')->with('error', 'Tu carrito está vacío.');
         }
 
-       Stripe::setApiKey(config('services.stripe.secret'));
+        Stripe::setApiKey(config('services.stripe.secret'));
 
 
         $session = Session::create([
@@ -56,10 +56,16 @@ class StripePaymentController extends Controller
 
     public function success()
     {
-        // Limpia el carrito tras pago exitoso
+        $cart = session()->get('cart', []);
         session()->forget('cart');
-        return view('payments.success');
+
+        // Obtener todos los IDs de los juegos del carrito
+        $juegoIds = implode(',', array_keys($cart)); // Ej: "1,3,5"
+
+        return redirect()->route('checkout.success', ['juegos' => $juegoIds]);
     }
+
+
 
     public function cancel()
     {

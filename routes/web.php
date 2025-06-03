@@ -17,6 +17,7 @@ use App\Http\Controllers\FavoritoController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\CheckoutController;
 /*
 |--------------------------------------------------------------------------
 | Rutas públicas
@@ -120,9 +121,14 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/checkout', [StripePaymentController::class, 'checkoutForm'])->name('payment.checkout');
 
-    Route::get('/checkout/success', [StripePaymentController::class, 'success'])->name('stripe.success');
-    Route::get('/checkout/cancel', [StripePaymentController::class, 'cancel'])->name('stripe.cancel');
+    // Stripe redirección al completar o cancelar pago
+    Route::get('/checkout/stripe/success', [StripePaymentController::class, 'success'])->name('stripe.success');
+    Route::get('/checkout/stripe/cancel', [StripePaymentController::class, 'cancel'])->name('stripe.cancel');
+
+    // Vista de confirmación con claves del juego comprado
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 });
 
 
