@@ -44,9 +44,9 @@ class RegisterController extends Controller
             'nombre_usuario' => $data['nombre_usuario'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'rol' => 'usuario', // Asignar rol por defecto
-            'avatar' => $avatarPath,  // Guardar el avatar
-            'saldo' => 0,  // Saldo por defecto
+            'rol' => 'usuario',
+            'avatar' => $avatarPath,
+            'saldo' => 0,
         ]);
     }
 }

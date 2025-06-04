@@ -165,13 +165,13 @@
                 link.addEventListener('mouseleave', () => link.classList.remove('active-hover'));
             });
 
-            // 🎯 Footer animation
+
             const footer = document.getElementById('footer');
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         footer.classList.add('animate-in');
-                        observer.unobserve(footer); // Solo una vez
+                        observer.unobserve(footer);
                     }
                 });
             }, {

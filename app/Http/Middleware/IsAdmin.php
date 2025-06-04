@@ -14,6 +14,6 @@ class IsAdmin
             return $next($request);
         }
 
-        return redirect('home'); // Redirige a una página que no tenga acceso el administrador
+        return redirect('home');
     }
 }

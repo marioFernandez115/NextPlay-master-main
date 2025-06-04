@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 
 class AjustesController extends Controller
 {
-    // Método para mostrar los ajustes
+    /**
+     * Muestra la vista de ajustes de usuario.
+     */
     public function ajustesWeb()
     {
-        return view('ajustesWeb');  // Asegúrate de que la vista exista
+        return view('ajustesWeb');
     }
 }

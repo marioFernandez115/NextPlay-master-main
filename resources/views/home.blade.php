@@ -6,12 +6,12 @@
         <div class="col-md-10">
             <div class="card shadow-lg border-0 rounded-4 animate__animated animate__fadeInDown">
                 <div class="card-body bg-light py-5">
-                    {{-- Título principal con bienvenida traducida --}}
+
                     <h1 class="display-4 fw-bold mb-4 text-primary">
                         {{ __('general.bienvenida_js', ['usuario' => Auth::user()->nombre_usuario ?? Auth::user()->name ?? 'Usuario']) }}
                     </h1>
 
-                    {{-- Subtítulo/Saludo adicional --}}
+                    {{--Saludo adicional --}}
                     <p class="lead">
                         {{ __('general.saludo', ['usuario' => Auth::user()->nombre_usuario ?? Auth::user()->name ?? 'Usuario']) }} 👑
                     </p>
@@ -32,6 +32,5 @@
     </div>
 </div>
 
-{{-- SweetAlert para posible mensaje adicional (opcional) --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection

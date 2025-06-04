@@ -22,7 +22,7 @@ class User extends Authenticatable
         'saldo',
         'rol',
         'fecha_registro',
-        'fecha_nacimiento', // ✅ AÑADIDO para evitar error en update()
+        'fecha_nacimiento', 
     ];
 
     protected $hidden = [

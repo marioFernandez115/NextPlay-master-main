@@ -9,8 +9,8 @@ class Productostable extends Migration
     public function up()
     {
         Schema::create('productos', function (Blueprint $table) {
-            $table->id('id_producto'); // Crea unsignedBigInteger
-            $table->foreignId('id_vendedor') // AUTOMÁTICAMENTE unsignedBigInteger
+            $table->id('id_producto');
+            $table->foreignId('id_vendedor')
                 ->constrained('usuarios', 'id_usuario')
                 ->onDelete('cascade');
 

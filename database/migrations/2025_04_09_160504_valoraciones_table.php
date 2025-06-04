@@ -17,7 +17,7 @@ class Valoracionestable extends Migration
             $table->id('id_valoracion');
             $table->foreignId('id_compra')->constrained('compras', 'id_compra')->onDelete('cascade');
             $table->foreignId('id_receptor')->constrained('usuarios', 'id_usuario')->onDelete('cascade');
-            $table->tinyInteger('puntuacion')->unsigned(); // 1-5
+            $table->tinyInteger('puntuacion')->unsigned();
             $table->text('comentario')->nullable();
             $table->date('fecha_valoracion');
         });

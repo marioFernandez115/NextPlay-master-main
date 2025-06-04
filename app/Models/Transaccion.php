@@ -21,13 +21,13 @@ class Transaccion extends Model
         'estado_transaccion',
     ];
 
-    // 🔗 Relación: Transacción pertenece a una compra
+    //  Relación: Transacción pertenece a una compra
     public function compra()
     {
         return $this->belongsTo(Compra::class, 'id_compra', 'id_compra');
     }
 
-    // 🔗 Relación: Transacción pertenece a un usuario
+    // Relación: Transacción pertenece a un usuario
     public function usuario()
     {
         return $this->belongsTo(User::class, 'id_usuario', 'id_usuario');

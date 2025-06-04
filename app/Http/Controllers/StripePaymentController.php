@@ -26,7 +26,7 @@ class StripePaymentController extends Controller
                     'product_data' => [
                         'name' => $item['titulo'],
                     ],
-                    'unit_amount' => $item['precio'] * 100, // Stripe trabaja en céntimos
+                    'unit_amount' => $item['precio'] * 100, 
                 ],
                 'quantity' => 1,
             ];
@@ -60,7 +60,7 @@ class StripePaymentController extends Controller
         session()->forget('cart');
 
         // Obtener todos los IDs de los juegos del carrito
-        $juegoIds = implode(',', array_keys($cart)); // Ej: "1,3,5"
+        $juegoIds = implode(',', array_keys($cart));
 
         return redirect()->route('checkout.success', ['juegos' => $juegoIds]);
     }

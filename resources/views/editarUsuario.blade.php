@@ -3,7 +3,7 @@
 @section('titulo', __('general.editarUsuario'))
 
 @section('contenido')
-{{-- <h1>{{ __('general.Editar {{ __('Perfil') }}') }}</h1> --}}
+
 <p class="fs-5">{{ __('general.editarUsuariohola') }}, <strong>{{ Auth::user()->nombre_usuario }}</strong>. {{ __('general.editarUsuarioInfo') }}</p>
 
 @if (session('success'))

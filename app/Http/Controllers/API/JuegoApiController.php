@@ -67,7 +67,7 @@ class JuegoApiController extends Controller
     }
 
     /**
-     * Mostrar un juego especÃ­fico.
+     * Mostrar un juego especifico.
      */
     public function show($id)
     {
@@ -96,7 +96,7 @@ class JuegoApiController extends Controller
             'stock' => 'sometimes|integer',
         ]);
 
-        // Si hay nueva imagen, reemplazarla
+
         if ($request->hasFile('imagen')) {
             $imagenPath = $request->file('imagen')->store('images', 'public');
             $juego->imagen = $imagenPath;

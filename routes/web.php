@@ -18,65 +18,48 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\CheckoutController;
+
 /*
 |--------------------------------------------------------------------------
-| Rutas públicas
+| Rutas Públicas
 |--------------------------------------------------------------------------
 */
 
-// Página principal
 Route::get('/', function () {
     return view('index');
 })->name('inicio');
 
+Route::view('/terminos', 'terminos')->name('terminos');
+Route::view('/privacidad', 'privacidad')->name('privacidad');
+Route::view('/ayuda', 'ayuda')->name('ayuda');
+
 Route::get('/juegos', [JuegoApiController::class, 'index'])->name('api.juegos.index');
 Route::get('/ofertas', [juegosController::class, 'vistaOfertas'])->name('ofertas.index');
-Route::get('/juegos', [juegosController::class, 'vistaJuegos'])->middleware('auth')->name('juegos.index');
+Route::get('/lang/{locale}', function ($locale) {
+    $availableLocales = ['es', 'en', 'pt'];
+    if (in_array($locale, $availableLocales)) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+});
 
 /*
 |--------------------------------------------------------------------------
 | Autenticación (Login, Registro, Logout)
 |--------------------------------------------------------------------------
 */
-// Protección contra solicitudes GET al logout
+
+Auth::routes();
 Route::get('/logout', function () {
     abort(405);
 });
-Auth::routes();
 
 /*
 |--------------------------------------------------------------------------
-| Área de usuario
+| Restablecimiento de Contraseña
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->group(function () {
-    Route::get('/editarUsuario', [UsuarioEditController::class, 'edit'])->name('editarUsuario');
-    Route::put('/editarUsuario', [UsuarioEditController::class, 'update'])->name('usuario.update');
-});
-
-Route::get('/usuario/historial', [UsuarioEditController::class, 'historial'])
-    ->middleware('auth')->name('usuario.historial');
-
-Route::get('/cambiarAvatar', [UsuarioController::class, 'cambiarAvatar'])->name('cambiarAvatar');
-Route::get('/ajustesWeb', [AjustesController::class, 'ajustesWeb'])->name('ajustesWeb');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::delete('/eliminarCuenta', [UsuarioController::class, 'eliminarCuenta'])->name('usuario.eliminar');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/usuario/editar', [UsuarioEditController::class, 'edit'])->name('usuario.edit');
-    Route::put('/usuario/editar', [UsuarioEditController::class, 'update'])->name('usuario.update');
-    Route::post('/juegos/{juego}/favorito', [FavoritoController::class, 'toggle'])->name('favoritos.toggle');
-
-    Route::post('/favoritos/{juego}/toggle', [FavoritoController::class, 'toggle'])->name('favoritos.toggle');
-    Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos');
-});
-
-/*
-|--------------------------------------------------------------------------
-| Restablecer Contraseña
-|--------------------------------------------------------------------------
-*/
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
@@ -84,7 +67,62 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 
 /*
 |--------------------------------------------------------------------------
-| Rutas de administración 
+| Área de Usuario (Autenticado)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+    Route::get('/juegos', [juegosController::class, 'vistaJuegos'])->name('juegos.index');
+
+    Route::get('/editarUsuario', [UsuarioEditController::class, 'edit'])->name('editarUsuario');
+    Route::put('/editarUsuario', [UsuarioEditController::class, 'update'])->name('usuario.update');
+
+    Route::get('/usuario/editar', [UsuarioEditController::class, 'edit'])->name('usuario.edit');
+    Route::put('/usuario/editar', [UsuarioEditController::class, 'update'])->name('usuario.update');
+    Route::get('/usuario/historial', [UsuarioEditController::class, 'historial'])->name('usuario.historial');
+
+    Route::get('/cambiarAvatar', [UsuarioController::class, 'cambiarAvatar'])->name('cambiarAvatar');
+    Route::get('/ajustesWeb', [AjustesController::class, 'ajustesWeb'])->name('ajustesWeb');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::delete('/eliminarCuenta', [UsuarioController::class, 'eliminarCuenta'])->name('usuario.eliminar');
+
+    Route::post('/juegos/{juego}/favorito', [FavoritoController::class, 'toggle'])->name('favoritos.toggle');
+    Route::post('/favoritos/{juego}/toggle', [FavoritoController::class, 'toggle'])->name('favoritos.toggle');
+    Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Carrito de Compras
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/carrito', [CartController::class, 'index'])->name('cart.index');
+Route::post('/carrito/agregar/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/carrito/eliminar/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/carrito/vaciar', [CartController::class, 'clear'])->name('cart.clear');
+Route::post('/carrito/comprar', [CartController::class, 'checkout'])->name('cart.checkout');
+
+/*
+|--------------------------------------------------------------------------
+| Pagos con Stripe
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+    Route::get('/checkout', [StripePaymentController::class, 'checkoutForm'])->name('payment.checkout');
+    Route::get('/checkout/success', [StripePaymentController::class, 'success'])->name('payment.success');
+    Route::get('/checkout/cancel', [StripePaymentController::class, 'cancel'])->name('payment.cancel');
+
+    Route::get('/checkout/stripe/success', [StripePaymentController::class, 'success'])->name('stripe.success');
+    Route::get('/checkout/stripe/cancel', [StripePaymentController::class, 'cancel'])->name('stripe.cancel');
+
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Administración (Solo Admin)
 |--------------------------------------------------------------------------
 */
 
@@ -97,53 +135,3 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::delete('/juegos/{id}', [JuegoController::class, 'destroy'])->name('admin.juegos.destroy');
     Route::get('/admin/juegos/{juego}', [JuegoController::class, 'show'])->name('admin.juegos.show');
 });
-
-/*
-|--------------------------------------------------------------------------
-| Carrito
-|--------------------------------------------------------------------------
-*/
-Route::get('/carrito', [CartController::class, 'index'])->name('cart.index');
-Route::post('/carrito/agregar/{id}', [CartController::class, 'add'])->name('cart.add');
-Route::post('/carrito/eliminar/{id}', [CartController::class, 'remove'])->name('cart.remove');
-Route::post('/carrito/vaciar', [CartController::class, 'clear'])->name('cart.clear');
-Route::post('/carrito/comprar', [CartController::class, 'checkout'])->name('cart.checkout');
-
-/*
-|--------------------------------------------------------------------------
-| Stripe Payment
-|--------------------------------------------------------------------------
-*/
-Route::middleware('auth')->group(function () {
-    Route::get('/checkout', [StripePaymentController::class, 'checkoutForm'])->name('payment.checkout');
-    Route::get('/checkout/success', [StripePaymentController::class, 'success'])->name('payment.success');
-    Route::get('/checkout/cancel', [StripePaymentController::class, 'cancel'])->name('payment.cancel');
-});
-
-Route::middleware('auth')->group(function () {
-    Route::get('/checkout', [StripePaymentController::class, 'checkoutForm'])->name('payment.checkout');
-
-    // Stripe redirección al completar o cancelar pago
-    Route::get('/checkout/stripe/success', [StripePaymentController::class, 'success'])->name('stripe.success');
-    Route::get('/checkout/stripe/cancel', [StripePaymentController::class, 'cancel'])->name('stripe.cancel');
-
-    // Vista de confirmación con claves del juego comprado
-    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
-});
-
-
-
-// eliminare cuenta 
-Route::delete('/eliminarCuenta', [UsuarioController::class, 'eliminarCuenta'])->name('eliminarCuenta');
-
-Route::get('/lang/{locale}', function ($locale) {
-    $availableLocales = ['es', 'en', 'pt'];
-    if (in_array($locale, $availableLocales)) {
-        session(['locale' => $locale]);
-    }
-    return redirect()->back();
-});
-
-Route::view('/terminos', 'terminos')->name('terminos');
-Route::view('/privacidad', 'privacidad')->name('privacidad');
-Route::view('/ayuda', 'ayuda')->name('ayuda');

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -12,22 +13,22 @@ use App\Models\Transaccion;
 
 class UsuarioEditController extends Controller
 {
-    // ✅ Mostrar formulario de edición con historial de compras
-public function edit()
-{
-    $usuario = Auth::user(); // Este es un App\Models\User
 
-    // Asegúrate de tener esto bien
-    $compras = $usuario->compras()->with('juego')->orderByDesc('fecha_compra')->get();
-
-    $totalGastado = $compras->sum('precio_final');
-
-    // Cargar la vista con los datos
-    return view('editarUsuario', compact('usuario', 'compras', 'totalGastado'));
-}
+    public function edit()
+    {
+        $usuario = Auth::user();
 
 
-    // ✅ Guardar los cambios de perfil
+        $compras = $usuario->compras()->with('juego')->orderByDesc('fecha_compra')->get();
+
+        $totalGastado = $compras->sum('precio_final');
+
+        // Cargar la vista con los datos
+        return view('editarUsuario', compact('usuario', 'compras', 'totalGastado'));
+    }
+
+
+
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -56,7 +57,7 @@ public function edit()
         return back()->with('success', 'Perfil actualizado correctamente.');
     }
 
-    // ❗️(opcional) Si tienes ruta /usuario/historial
+
     public function historial()
     {
         dd(get_class(Auth::user()));

@@ -28,7 +28,7 @@ class AuthController extends Controller
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Si la validación falla, redirigir con errores
+
         if ($validator->fails()) {
             return redirect()->route('auth.register')
                 ->withErrors($validator)
@@ -47,15 +47,15 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'avatar' => $avatarPath,
-            'saldo' => 0, // Ajuste de saldo predeterminado
-            'rol' => 'usuario', // Rol predeterminado como 'usuario'
+            'saldo' => 0,
+            'rol' => 'usuario',
         ]);
 
         // Iniciar sesión con el usuario recién registrado
         Auth::login($user);
 
         // Redirigir al login después de registrar
-        return redirect()->route('auth.login'); // Redirige al formulario de login
+        return redirect()->route('auth.login');
     }
 
     // Mostrar el formulario de inicio de sesión
@@ -72,7 +72,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Si el inicio de sesión es exitoso, redirigir al usuario
-            return redirect()->intended(route('home')); // Redirige a la página de inicio o a la ruta solicitada
+            return redirect()->intended(route('home'));
         }
 
         // Si las credenciales son incorrectas
@@ -85,6 +85,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('auth.login'); // Redirigir a la página de login
+        return redirect()->route('auth.login');
     }
 }

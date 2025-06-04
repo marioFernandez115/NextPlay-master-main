@@ -40,7 +40,7 @@ success.blade.php:
     </div>
 </div>
 
-<!-- Script para mostrar el modal al cargar la página -->
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var myModal = new bootstrap.Modal(document.getElementById('thanksModal'));

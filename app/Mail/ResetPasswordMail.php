@@ -19,11 +19,11 @@ class ResetPasswordMail extends Mailable
 
     public function build()
     {
-        return $this->view('auth.passwords.resetPassword')  // Vista correcta para el correo
+        return $this->view('auth.passwords.resetPassword')  
             ->subject('Restablecimiento de Contraseña')
-            ->from('Administrador@NextPlay.es', 'NextPlay')  // Establece el correo y nombre del remitente
+            ->from('Administrador@NextPlay.es', 'NextPlay')  
             ->with([
-                'url' => $this->url,  // Pasa la URL al correo
+                'url' => $this->url,  
             ]);
     }
 }

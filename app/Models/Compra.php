@@ -22,19 +22,19 @@ class Compra extends Model
         'clave_entregada',
     ];
 
-    // 🔗 Relación: Una compra pertenece a un usuario
+
     public function comprador()
     {
         return $this->belongsTo(User::class, 'id_comprador', 'id_usuario');
     }
 
-    // 🔗 Relación: Una compra tiene un juego
+
     public function juego()
     {
         return $this->belongsTo(Juego::class, 'id_producto', 'id');
     }
 
-    // 🔗 Relación: Una compra puede tener muchas transacciones
+
     public function transacciones()
     {
         return $this->hasMany(Transaccion::class, 'id_compra', 'id_compra');
