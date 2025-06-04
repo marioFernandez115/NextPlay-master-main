@@ -135,7 +135,7 @@
                     <p>Gonzalo Jimeno y Mario Fernandez</p>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <h5>{{ __('general.enlacesutiles') }}</h5>
+                    <h5>{{ __('general.Enlacesútiles') }}</h5>
                     <ul class="list-unstyled">
                         <li><a href="{{ route('terminos') }}" class="text-decoration-none text-light">{{ __('general.teminosycondiciones') }}</a></li>
                         <li><a href="{{ route('privacidad') }}" class="text-decoration-none text-light">{{ __('general.politicadeprivacidad') }}</a></li>

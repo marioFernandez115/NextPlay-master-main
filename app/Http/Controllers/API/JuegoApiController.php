@@ -67,7 +67,7 @@ class JuegoApiController extends Controller
     }
 
     /**
-     * Mostrar un juego específico.
+     * Mostrar un juego especÃ­fico.
      */
     public function show($id)
     {

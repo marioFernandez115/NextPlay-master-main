@@ -31,7 +31,7 @@ Route::get('/', function () {
 
 Route::get('/juegos', [JuegoApiController::class, 'index'])->name('api.juegos.index');
 Route::get('/ofertas', [juegosController::class, 'vistaOfertas'])->name('ofertas.index');
-Route::get('/juegos', [juegosController::class, 'vistaJuegos'])->name('juegos.index');
+Route::get('/juegos', [juegosController::class, 'vistaJuegos'])->middleware('auth')->name('juegos.index');
 
 /*
 |--------------------------------------------------------------------------

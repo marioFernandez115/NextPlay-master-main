@@ -72,7 +72,7 @@ return [
     'Clientessatisfechos' => 'Clientes satisfechos',
     'Entregarápida' => 'Entrega rápida',
     'Recibeensegundos' => 'Recibe en segundos',
-    'Soporte 24/7' => 'Soporte 24/7',
+    'Soporte24/7' => 'Soporte 24/7',
     'Ayudaentodomomento' => 'Ayuda en todo momento',
     'Compradesdecualquierlugar' => 'Compra desde cualquier lugar',
     'Coberturaglobal' => 'Cobertura global',
